@@ -1,0 +1,53 @@
+<div class="gallery-container p-3">
+  <h2 class="text-center">Event Gallery</h2>
+
+  <div *ngIf="isLoading" class="text-center mt-5">
+    <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+    <p>Loading gallery...</p>
+  </div>
+
+  <div *ngIf="!isLoading && galleryEvents.length === 0" class="text-center mt-5">
+    <p>No images found in the gallery.</p>
+  </div>
+
+  <div *ngIf="!isLoading && galleryEvents.length > 0">
+    <div *ngFor="let galleryItem of galleryEvents; let i = index" class="event-gallery-item card mb-4">
+      <div class="card-header">
+        <h5>{{ galleryItem.eventInfo }}</h5>
+      </div>
+      <div class="card-body">
+        <div class="grid">
+          <div *ngFor="let img of galleryItem.images; let imgIndex = index" class="col-6 md:col-4 lg:col-3 xl:col-2">
+            <p-image [src]="img.itemImageSrc" [alt]="img.alt" width="100%" [preview]="true" imageStyleClass="gallery-thumbnail">
+                <ng-template pTemplate="indicator">
+                    Click to Preview
+                </ng-template>
+            </p-image>
+            </div>
+           <div *ngIf="galleryItem.images.length === 0" class="col-12">
+                <p>No images available for this event entry.</p>
+            </div>
+        </div>
+        <div class="mt-2" *ngIf="galleryItem.images.length > 0">
+             <p-button label="View Full Gallery for this Event" icon="pi pi-images" (click)="openGalleria(galleryItem.images)"></p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-galleria [(visible)]="displayGalleria" [(value)]="currentGalleriaImages" [(activeIndex)]="activeIndex"
+            [responsiveOptions]="responsiveOptions" [numVisible]="5" [circular]="true" [fullScreen]="true"
+            [showItemNavigators]="true" [showThumbnails]="true" baseZIndex="100000">
+    <ng-template pTemplate="item" let-item>
+        <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; display: block;" />
+    </ng-template>
+    <ng-template pTemplate="thumbnail" let-item>
+        <div class="grid grid-nogutter justify-content-center">
+            <img [src]="item.thumbnailImageSrc" [alt]="item.alt" style="display: block; max-width:100px; max-height:60px; object-fit:cover;" />
+        </div>
+    </ng-template>
+     <ng-template pTemplate="caption" let-item>
+        <h4 style="margin-bottom: .5rem; color: white;">{{item.title}}</h4>
+    </ng-template>
+</p-galleria>

@@ -1,0 +1,68 @@
+<div class="card">
+  <p-toolbar>
+    <div class="p-toolbar-group-start">
+      <p-button label="Create Event" icon="pi pi-plus" styleClass="p-button-success" (click)="openNewEventForm()"></p-button>
+    </div>
+  </p-toolbar>
+
+  <p-table [value]="events" [paginator]="true" [rows]="10" [responsive]="true" dataKey="id">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 150px;">Main Poster</th>
+        <th>Title</th>
+        <th>Host</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Category</th>
+        <th>Organizers</th>
+        <th>Participants</th>
+        <th>Programs</th>
+        <th style="width: 12rem">Actions</th> </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-event>
+      <tr>
+        <td>
+          <img *ngIf="event.event_main_poster_url" [src]="event.event_main_poster_url" [alt]="event.event_title" width="100" style="border-radius: 8px; object-fit: cover; height: 60px;" pTooltip="Main Poster" />
+          <span *ngIf="!event.event_main_poster_url">No Poster</span>
+        </td>
+        <td>{{ event.event_title }}</td>
+        <td>{{ event.event_host_name }}</td>
+        <td>{{ event.event_start_date | date: 'MMM d, yyyy' }}</td>
+        <td>{{ event.event_end_date | date: 'MMM d, yyyy' }}</td>
+        <td>{{ event.event_category }}</td>
+        <td>{{ event.total_organizer }}</td>
+        <td>{{ event.total_participant }}</td>
+        <td>{{ event.total_program }}</td>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="openEditEventForm(event)" pTooltip="Edit Event"></button>
+          <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info p-mr-2" (click)="showEventRawData(event)" pTooltip="Show Raw Data"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteEvent(event)" pTooltip="Delete Event"></button>
+          <button pButton pRipple icon="pi pi-calendar-times" class="p-button-rounded p-button-help p-mt-1" (click)="viewTimeline(event.id)" pTooltip="View Timeline"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="10" class="text-center">No events found.</td>
+        </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog header="Event Raw Data" [(visible)]="displayShowRawDialog" [modal]="true" [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+  <div *ngIf="currentEvent">
+    <pre>{{ currentEvent | json }}</pre>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayShowRawDialog=false" label="Ok" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>
+
+<app-event-form
+  *ngIf="showEventForm"
+  [visible]="showEventForm"
+  [eventToEdit]="eventToEdit"
+  [isEditMode]="isEditMode"
+  (formSubmitted)="onEventFormSubmitted($event)"
+  (formCancelled)="onEventFormCancelled()">
+</app-event-form>

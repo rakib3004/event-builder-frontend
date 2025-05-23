@@ -1,0 +1,131 @@
+<p-dialog [header]="isEditMode ? 'Edit Event' : 'Create New Event'" [(visible)]="visible" [modal]="true"
+  [style]="{width: '60vw', 'min-width': '500px'}" (onHide)="closeDialog()" [draggable]="false" [resizable]="false">
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+    <div class="p-fluid p-formgrid grid">
+      <div class="field col-12 md:col-6">
+        <label for="event_title">Event Title <span class="text-danger">*</span></label>
+        <input id="event_title" type="text" pInputText formControlName="event_title"
+          [ngClass]="{'ng-invalid ng-dirty': eventForm.controls['event_title'].invalid && (eventForm.controls['event_title'].dirty || eventForm.controls['event_title'].touched)}">
+        <small class="p-error"
+          *ngIf="eventForm.controls['event_title'].invalid && (eventForm.controls['event_title'].dirty || eventForm.controls['event_title'].touched)">
+          Event title is required.
+        </small>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="event_host_name">Host Name <span class="text-danger">*</span></label>
+        <input id="event_host_name" type="text" pInputText formControlName="event_host_name"
+          [ngClass]="{'ng-invalid ng-dirty': eventForm.controls['event_host_name'].invalid && (eventForm.controls['event_host_name'].dirty || eventForm.controls['event_host_name'].touched)}">
+        <small class="p-error"
+          *ngIf="eventForm.controls['event_host_name'].invalid && (eventForm.controls['event_host_name'].dirty || eventForm.controls['event_host_name'].touched)">
+          Host name is required.
+        </small>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="event_start_date">Start Date <span class="text-danger">*</span></label>
+        <p-calendar id="event_start_date" formControlName="event_start_date" [showIcon]="true" dateFormat="yy-mm-dd"
+          [ngClass]="{'ng-invalid ng-dirty': eventForm.controls['event_start_date'].invalid && (eventForm.controls['event_start_date'].dirty || eventForm.controls['event_start_date'].touched)}"></p-calendar>
+        <small class="p-error"
+          *ngIf="eventForm.controls['event_start_date'].errors?.['required'] && (eventForm.controls['event_start_date'].dirty || eventForm.controls['event_start_date'].touched)">
+          Start date is required.
+        </small>
+         <small class="p-error"
+          *ngIf="eventForm.controls['event_start_date'].errors?.['invalidDate'] && (eventForm.controls['event_start_date'].dirty || eventForm.controls['event_start_date'].touched)">
+          Invalid date format.
+        </small>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="event_end_date">End Date <span class="text-danger">*</span></label>
+        <p-calendar id="event_end_date" formControlName="event_end_date" [showIcon]="true" dateFormat="yy-mm-dd"
+          [ngClass]="{'ng-invalid ng-dirty': eventForm.controls['event_end_date'].invalid && (eventForm.controls['event_end_date'].dirty || eventForm.controls['event_end_date'].touched)}"></p-calendar>
+        <small class="p-error"
+          *ngIf="eventForm.controls['event_end_date'].errors?.['required'] && (eventForm.controls['event_end_date'].dirty || eventForm.controls['event_end_date'].touched)">
+          End date is required.
+        </small>
+        <small class="p-error"
+            *ngIf="eventForm.controls['event_end_date'].errors?.['endDateBeforeStartDate'] && (eventForm.controls['event_end_date'].dirty || eventForm.controls['event_end_date'].touched)">
+            End date cannot be before start date.
+        </small>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="event_category">Category</label>
+        <p-dropdown id="event_category" [options]="categories" formControlName="event_category" placeholder="Select a Category" optionLabel="label" optionValue="value" [showClear]="true"></p-dropdown>
+      </div>
+
+      <div class="field col-12">
+        <label for="event_description">Description</label>
+        <textarea id="event_description" pInputTextarea formControlName="event_description" rows="3" autoResize="autoResize"></textarea>
+      </div>
+
+      <div class="field col-12 md:col-4">
+        <label for="total_organizer">Total Organizers</label>
+        <p-inputNumber id="total_organizer" formControlName="total_organizer" mode="decimal" [showButtons]="true" [min]="0"></p-inputNumber>
+      </div>
+
+      <div class="field col-12 md:col-4">
+        <label for="total_participant">Total Participants</label>
+        <p-inputNumber id="total_participant" formControlName="total_participant" mode="decimal" [showButtons]="true" [min]="0"></p-inputNumber>
+      </div>
+
+      <div class="field col-12 md:col-4">
+        <label for="total_program">Total Programs</label>
+        <p-inputNumber id="total_program" formControlName="total_program" mode="decimal" [showButtons]="true" [min]="0"></p-inputNumber>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="event_main_poster">Main Poster</label>
+        <p-fileUpload name="mainPoster" #fUploadMain customUpload="true" (uploadHandler)="onMainPosterSelect($event)"
+                      (onSelect)="onMainPosterSelect($event)" (onClear)="onMainPosterClear()"
+                      accept="image/*" [maxFileSize]="2000000" [showUploadButton]="false" [showCancelButton]="false" chooseLabel="Choose Poster">
+            <ng-template pTemplate="content">
+                <div *ngIf="mainPosterPreview" class="mt-2 text-center">
+                    <img [src]="mainPosterPreview" alt="Main Poster Preview" style="max-height: 150px; border-radius: 4px;">
+                     <p-button icon="pi pi-times" styleClass="p-button-danger p-button-sm" (click)="onMainPosterClear(); fUploadMain.clear();" label="Clear Selected"></p-button>
+                </div>
+                 <div *ngIf="!mainPosterPreview && isEditMode && eventToEdit?.event_main_poster_url" class="mt-2 text-center">
+                    <img [src]="eventToEdit?.event_main_poster_url" alt="Current Main Poster" style="max-height: 150px; border-radius: 4px;">
+                    <small class="block">Current poster. Choose a new file to replace.</small>
+                </div>
+            </ng-template>
+        </p-fileUpload>
+         <small *ngIf="isEditMode && !selectedMainPoster && eventToEdit?.event_main_poster_url" class="block mt-1">
+            Current poster will be kept if no new poster is selected.
+        </small>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="event_photos">Event Photos (Multiple)</label>
+        <p-fileUpload name="eventPhotos[]" #fUploadPhotos customUpload="true" (uploadHandler)="onEventPhotosSelect($event)"
+                      (onSelect)="onEventPhotosSelect($event)" (onClear)="onEventPhotosClear()"
+                      multiple="true" accept="image/*" [maxFileSize]="5000000" maxFileCount="10" [showUploadButton]="false" [showCancelButton]="false" chooseLabel="Choose Photos">
+            <ng-template pTemplate="content">
+                <div *ngIf="eventPhotosPreviews.length > 0" class="mt-2 flex flex-wrap gap-2">
+                    <div *ngFor="let preview of eventPhotosPreviews; let i = index" class="text-center">
+                        <img [src]="preview" [alt]="'Event Photo Preview ' + i" style="max-height: 100px; border-radius: 4px; margin: 5px;">
+                    </div>
+                </div>
+                 <div *ngIf="eventPhotosPreviews.length === 0 && isEditMode && eventToEdit?.event_photos_urls?.length > 0" class="mt-2 flex flex-wrap gap-2">
+                     <div *ngFor="let url of eventToEdit.event_photos_urls; let i = index" class="text-center">
+                        <img [src]="url" [alt]="'Current Event Photo ' + i" style="max-height: 100px; border-radius: 4px; margin: 5px;">
+                    </div>
+                    <small class="block w-full">Current photos. Choose new files to replace all.</small>
+                </div>
+                 <p-button *ngIf="eventPhotosPreviews.length > 0" icon="pi pi-times" styleClass="p-button-danger p-button-sm mt-1" (click)="onEventPhotosClear(); fUploadPhotos.clear();" label="Clear Selected Photos"></p-button>
+            </ng-template>
+        </p-fileUpload>
+         <small *ngIf="isEditMode && selectedEventPhotos.length === 0 && eventToEdit?.event_photos_urls?.length > 0" class="block mt-1">
+            Current event photos will be kept if no new photos are selected. (Note: Current backend replaces all if new ones are uploaded)
+        </small>
+      </div>
+
+    </div>
+
+    <div class="p-dialog-footer mt-4">
+      <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-text" (click)="onCancel()"></p-button>
+      <p-button [label]="isEditMode ? 'Update Event' : 'Create Event'" icon="pi pi-check" type="submit" [loading]="isLoading"></p-button>
+    </div>
+  </form>
+</p-dialog>
