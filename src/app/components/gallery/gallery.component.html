@@ -10,7 +10,7 @@
     <p>No images found in the gallery.</p>
   </div>
 
-  <div *ngIf="!isLoading && galleryEvents.length > 0">
+  <div *ngIf="!isLoading && galleryEvents.length! > 0">
     <div *ngFor="let galleryItem of galleryEvents; let i = index" class="event-gallery-item card mb-4">
       <div class="card-header">
         <h5>{{ galleryItem.eventInfo }}</h5>
@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<p-galleria [(visible)]="displayGalleria" [(value)]="currentGalleriaImages" [(activeIndex)]="activeIndex"
+<p-galleria [(visible)]="displayGalleria" [value]="currentGalleriaImages" [(activeIndex)]="activeIndex" 
             [responsiveOptions]="responsiveOptions" [numVisible]="5" [circular]="true" [fullScreen]="true"
             [showItemNavigators]="true" [showThumbnails]="true" baseZIndex="100000">
     <ng-template pTemplate="item" let-item>

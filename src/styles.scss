@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  font-family: var(--font-family); // Using PrimeNG's font variable
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--surface-ground); // Using PrimeNG's background variable
+  color: var(--text-color); // Using PrimeNG's text color variable
+}
+
+.container { // A general container class if you use it
+  padding: 1rem;
+}
+
+.mt-3 {
+  margin-top: 1rem; // Example utility class
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem; // Example utility class
+}
+
+.text-danger { // From your form validation
+  color: var(--red-500); // Using a PrimeNG color variable or your own
+}
+
+.text-center {
+  text-align: center;
+}

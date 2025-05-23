@@ -1,12 +1,29 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule, DatePipe } from '@angular/common'; // Import CommonModule
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'; // Import RouterModule for routerLink
+import { Subscription } from 'rxjs';
 import { EventService } from '../../services/event.service';
 import { Event } from '../../models/event.model';
 import { MessageService } from 'primeng/api';
-import { Subscription } from 'rxjs';
+
+// PrimeNG Modules for this component
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { ImageModule } from 'primeng/image'; // For p-image
+import { TagModule } from 'primeng/tag';   // For p-tag
 
 @Component({
   selector: 'app-timeline',
+  standalone: true,
+  imports: [
+    CommonModule, // For *ngIf, *ngFor, pipes
+    RouterModule, // For routerLink
+    CardModule,
+    ButtonModule,
+    ImageModule,
+    TagModule
+  ],
+  // providers: [DatePipe], // DatePipe is part of CommonModule
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.scss']
 })
@@ -31,7 +48,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
       } else {
         this.isLoading = false;
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No event ID provided for timeline.' });
-        this.router.navigate(['/dashboard']); // Redirect if no ID
+        this.router.navigate(['/dashboard']);
       }
     });
   }
@@ -47,8 +64,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
         error: (err) => {
           this.isLoading = false;
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Could not load event details. ' + err.message });
-          console.error(err);
-          this.router.navigate(['/dashboard']); // Redirect if event not found or error
+          this.router.navigate(['/dashboard']);
         }
       })
     );
@@ -61,7 +77,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   }
 
   goBack(): void {
-    this.router.navigate(['/dashboard']); // Or history.back() if appropriate
+    this.router.navigate(['/dashboard']);
   }
 
   ngOnDestroy(): void {

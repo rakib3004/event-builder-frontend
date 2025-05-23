@@ -107,8 +107,8 @@
                         <img [src]="preview" [alt]="'Event Photo Preview ' + i" style="max-height: 100px; border-radius: 4px; margin: 5px;">
                     </div>
                 </div>
-                 <div *ngIf="eventPhotosPreviews.length === 0 && isEditMode && eventToEdit?.event_photos_urls?.length > 0" class="mt-2 flex flex-wrap gap-2">
-                     <div *ngFor="let url of eventToEdit.event_photos_urls; let i = index" class="text-center">
+                 <div *ngIf="eventPhotosPreviews.length === 0 && isEditMode && eventToEdit?.event_photos_urls?.length! > 0" class="mt-2 flex flex-wrap gap-2">
+                     <div *ngFor="let url of eventToEdit?.event_photos_urls; let i = index" class="text-center">
                         <img [src]="url" [alt]="'Current Event Photo ' + i" style="max-height: 100px; border-radius: 4px; margin: 5px;">
                     </div>
                     <small class="block w-full">Current photos. Choose new files to replace all.</small>
@@ -116,7 +116,7 @@
                  <p-button *ngIf="eventPhotosPreviews.length > 0" icon="pi pi-times" styleClass="p-button-danger p-button-sm mt-1" (click)="onEventPhotosClear(); fUploadPhotos.clear();" label="Clear Selected Photos"></p-button>
             </ng-template>
         </p-fileUpload>
-         <small *ngIf="isEditMode && selectedEventPhotos.length === 0 && eventToEdit?.event_photos_urls?.length > 0" class="block mt-1">
+         <small *ngIf="isEditMode && selectedEventPhotos.length === 0 && eventToEdit?.event_photos_urls?.length! > 0" class="block mt-1">
             Current event photos will be kept if no new photos are selected. (Note: Current backend replaces all if new ones are uploaded)
         </small>
       </div>

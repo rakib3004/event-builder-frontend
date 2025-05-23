@@ -11,7 +11,7 @@ export interface Event {
   id?: number;
   event_title: string;
   event_host_name: string;
-  event_start_date: string; // Use string for date to match form and API, convert as needed
+  event_start_date: string;
   event_end_date: string;
   event_category?: EventCategory | null;
   event_main_poster_url?: string | null;
@@ -22,7 +22,6 @@ export interface Event {
   event_photos_urls?: string[];
 }
 
-// For the dashboard table, which shows fewer fields
 export interface EventListItem {
   id: number;
   event_title: string;
