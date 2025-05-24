@@ -41,7 +41,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
     { breakpoint: '768px', numVisible: 3 },
     { breakpoint: '560px', numVisible: 1 }
   ];
-  displayGalleria: boolean = true;
+  displayGalleria: boolean = false;
   activeIndex: number = 0;
   currentGalleriaImages: any[] = []; // For p-galleria value
 

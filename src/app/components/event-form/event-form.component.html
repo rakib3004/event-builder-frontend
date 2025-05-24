@@ -3,7 +3,7 @@
   <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12 md:col-6">
-        <label for="event_title">Event Title <span class="text-danger">*</span></label>
+        <label for="event_title">Event Title <span class="text-danger">*</span>: </label>
         <input id="event_title" type="text" pInputText formControlName="event_title"
           [ngClass]="{'ng-invalid ng-dirty': eventForm.controls['event_title'].invalid && (eventForm.controls['event_title'].dirty || eventForm.controls['event_title'].touched)}">
         <small class="p-error"
@@ -13,7 +13,7 @@
       </div>
 
       <div class="field col-12 md:col-6">
-        <label for="event_host_name">Host Name <span class="text-danger">*</span></label>
+        <label for="event_host_name">Host Name <span class="text-danger">*</span>: </label>
         <input id="event_host_name" type="text" pInputText formControlName="event_host_name"
           [ngClass]="{'ng-invalid ng-dirty': eventForm.controls['event_host_name'].invalid && (eventForm.controls['event_host_name'].dirty || eventForm.controls['event_host_name'].touched)}">
         <small class="p-error"
@@ -23,7 +23,7 @@
       </div>
 
       <div class="field col-12 md:col-6">
-        <label for="event_start_date">Start Date <span class="text-danger">*</span></label>
+        <label for="event_start_date">Start Date <span class="text-danger">*</span>: </label>
         <p-calendar id="event_start_date" formControlName="event_start_date" [showIcon]="true" dateFormat="yy-mm-dd"
           [ngClass]="{'ng-invalid ng-dirty': eventForm.controls['event_start_date'].invalid && (eventForm.controls['event_start_date'].dirty || eventForm.controls['event_start_date'].touched)}"></p-calendar>
         <small class="p-error"
@@ -37,7 +37,7 @@
       </div>
 
       <div class="field col-12 md:col-6">
-        <label for="event_end_date">End Date <span class="text-danger">*</span></label>
+        <label for="event_end_date">End Date <span class="text-danger">*</span>: </label>
         <p-calendar id="event_end_date" formControlName="event_end_date" [showIcon]="true" dateFormat="yy-mm-dd"
           [ngClass]="{'ng-invalid ng-dirty': eventForm.controls['event_end_date'].invalid && (eventForm.controls['event_end_date'].dirty || eventForm.controls['event_end_date'].touched)}"></p-calendar>
         <small class="p-error"
@@ -51,32 +51,32 @@
       </div>
 
       <div class="field col-12 md:col-6">
-        <label for="event_category">Category</label>
+        <label for="event_category">Category: </label>
         <p-dropdown id="event_category" [options]="categories" formControlName="event_category" placeholder="Select a Category" optionLabel="label" optionValue="value" [showClear]="true"></p-dropdown>
       </div>
 
       <div class="field col-12">
-        <label for="event_description">Description</label>
-        <textarea id="event_description" pInputTextarea formControlName="event_description" rows="3" autoResize="autoResize"></textarea>
+        <label for="event_description">Description: </label>
+            <textarea id="event_description" pInputTextarea formControlName="event_description" rows="2" autoResize="autoResize"></textarea>
       </div>
 
       <div class="field col-12 md:col-4">
-        <label for="total_organizer">Total Organizers</label>
+        <label for="total_organizer">Total Organizers: </label>
         <p-inputNumber id="total_organizer" formControlName="total_organizer" mode="decimal" [showButtons]="true" [min]="0"></p-inputNumber>
       </div>
 
       <div class="field col-12 md:col-4">
-        <label for="total_participant">Total Participants</label>
+        <label for="total_participant">Total Participants: </label>
         <p-inputNumber id="total_participant" formControlName="total_participant" mode="decimal" [showButtons]="true" [min]="0"></p-inputNumber>
       </div>
 
       <div class="field col-12 md:col-4">
-        <label for="total_program">Total Programs</label>
+        <label for="total_program">Total Programs: </label>
         <p-inputNumber id="total_program" formControlName="total_program" mode="decimal" [showButtons]="true" [min]="0"></p-inputNumber>
       </div>
 
       <div class="field col-12 md:col-6">
-        <label for="event_main_poster">Main Poster</label>
+        <label for="event_main_poster">Main Poster: </label>
         <p-fileUpload name="mainPoster" #fUploadMain customUpload="true" (uploadHandler)="onMainPosterSelect($event)"
                       (onSelect)="onMainPosterSelect($event)" (onClear)="onMainPosterClear()"
                       accept="image/*" [maxFileSize]="2000000" [showUploadButton]="false" [showCancelButton]="false" chooseLabel="Choose Poster">
@@ -97,7 +97,7 @@
       </div>
 
       <div class="field col-12 md:col-6">
-        <label for="event_photos">Event Photos (Multiple)</label>
+        <label for="event_photos">Event Photos (Multiple): </label>
         <p-fileUpload name="eventPhotos[]" #fUploadPhotos customUpload="true" (uploadHandler)="onEventPhotosSelect($event)"
                       (onSelect)="onEventPhotosSelect($event)" (onClear)="onEventPhotosClear()"
                       multiple="true" accept="image/*" [maxFileSize]="5000000" maxFileCount="10" [showUploadButton]="false" [showCancelButton]="false" chooseLabel="Choose Photos">

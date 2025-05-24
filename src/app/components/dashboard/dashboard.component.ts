@@ -123,12 +123,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.isEditMode = false;
   }
 
-  showEventRawData(eventItem: EventListItem): void {
-    this.eventService.getEventById(eventItem.id).subscribe({
-      next: (data) => { this.currentEvent = data; this.displayShowRawDialog = true; },
-      error: (err) => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Could not load event details. ' + err.message })
-    });
-  }
 
   deleteEvent(event: EventListItem): void {
     this.confirmationService.confirm({
@@ -147,7 +141,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  viewTimeline(eventId: number): void {
+  showEvent(eventId: number): void {
     this.router.navigate(['/timeline', eventId]);
   }
 

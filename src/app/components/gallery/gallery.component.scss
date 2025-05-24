@@ -5,7 +5,7 @@
   }
 
   .gallery-thumbnail {
-    width: 100%;
+    width: 150px;
     height: 150px; // Adjust as needed
     object-fit: cover;
     border-radius: 4px;
@@ -42,4 +42,14 @@
     opacity: 1;
     border: 2px solid #1d8cf8; // Highlight current thumbnail
   }
+}
+
+
+ h2 {
+  display: flex;
+  justify-content: center;
+}
+image-item {
+  display: flex;
+  justify-content: center;
 }

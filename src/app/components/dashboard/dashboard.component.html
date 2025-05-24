@@ -4,7 +4,7 @@
       <p-button label="Create Event" icon="pi pi-plus" styleClass="p-button-success" (click)="openNewEventForm()"></p-button>
     </div>
   </p-toolbar>
-
+  <h1>List of events</h1>
   <p-table [value]="events" [paginator]="true" [rows]="10" [responsive]="true" dataKey="id">
     <ng-template pTemplate="header">
       <tr>
@@ -35,9 +35,8 @@
         <td>{{ event.total_program }}</td>
         <td>
           <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="openEditEventForm(event)" pTooltip="Edit Event"></button>
-          <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info p-mr-2" (click)="showEventRawData(event)" pTooltip="Show Raw Data"></button>
           <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteEvent(event)" pTooltip="Delete Event"></button>
-          <button pButton pRipple icon="pi pi-calendar-times" class="p-button-rounded p-button-help p-mt-1" (click)="viewTimeline(event.id)" pTooltip="View Timeline"></button>
+          <button pButton pRipple icon="pi pi-calendar-times" class="p-button-rounded p-button-info p-mt-1" (click)="showEvent(event.id)" pTooltip="Show Event"></button>
         </td>
       </tr>
     </ng-template>

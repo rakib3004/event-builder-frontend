@@ -33,7 +33,7 @@
       </ng-template>
 
       <div class="event-details-content mt-3">
-        <h5>Here is the event details:</h5>
+        <h3>Here is the event details:</h3>
         <p class="event-description" *ngIf="event.event_description; else noDescription">
           {{ event.event_description }}
         </p>
@@ -59,21 +59,14 @@
 
       <div *ngIf="event.event_photos_urls && event.event_photos_urls.length > 0" class="mt-4">
         <hr>
-        <h5 class="mt-3">Event Photos:</h5>
+        <h3 class="mt-3">Event Photos:</h3>
         <div class="grid">
           <div *ngFor="let photoUrl of event.event_photos_urls" class="col-6 sm:col-4 md:col-3 lg:col-2">
-            <p-image [src]="photoUrl" [alt]="event.event_title + ' Photo'" width="100%" [preview]="true" imageStyleClass="timeline-event-photo">
-               <ng-template pTemplate="indicator">
-                    <i class="pi pi-search"></i>
-                </ng-template>
-            </p-image>
+            <img [src]="photoUrl" [alt]="event.event_title + ' Photo'" class="event-main-poster" style="width: 250px; height: 250px; border-radius: 8px; object-fit: cover;">
           </div>
         </div>
       </div>
 
-      <ng-template pTemplate="footer">
-        <p-button label="Edit This Event" icon="pi pi-pencil" styleClass="p-button-info" [routerLink]="['/dashboard']" [queryParams]="{editEventId: event.id}"></p-button>
-        </ng-template>
     </p-card>
   </div>
 </div>

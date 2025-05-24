@@ -1,5 +1,5 @@
 <div class="gallery-container p-3">
-  <h2 class="text-center">Event Gallery</h2>
+  <h1 class="text-center">Event Gallery</h1>
 
   <div *ngIf="isLoading" class="text-center mt-5">
     <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
@@ -10,19 +10,21 @@
     <p>No images found in the gallery.</p>
   </div>
 
-  <div *ngIf="!isLoading && galleryEvents.length! > 0">
-    <div *ngFor="let galleryItem of galleryEvents; let i = index" class="event-gallery-item card mb-4">
+  <div *ngIf="!isLoading && galleryEvents.length > 0">
+    <div *ngFor="let galleryItem of galleryEvents; let i = index" class="event-gallery-item card mb-4 gallery-view">
       <div class="card-header">
-        <h5>{{ galleryItem.eventInfo }}</h5>
+        <h2>{{ galleryItem.eventInfo }}</h2>
       </div>
       <div class="card-body">
         <div class="grid">
           <div *ngFor="let img of galleryItem.images; let imgIndex = index" class="col-6 md:col-4 lg:col-3 xl:col-2">
-            <p-image [src]="img.itemImageSrc" [alt]="img.alt" width="100%" [preview]="true" imageStyleClass="gallery-thumbnail">
-                <ng-template pTemplate="indicator">
-                    Click to Preview
-                </ng-template>
-            </p-image>
+              <div class="image-item">
+                <p-image [src]="img.itemImageSrc" [alt]="img.alt" width="280px" height="280px" [preview]="true" imageStyleClass="gallery-thumbnail">
+                    <ng-template pTemplate="indicator">
+                        Click to Preview
+                    </ng-template>
+                </p-image>
+              </div>
             </div>
            <div *ngIf="galleryItem.images.length === 0" class="col-12">
                 <p>No images available for this event entry.</p>
