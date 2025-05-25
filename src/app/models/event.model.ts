@@ -1,10 +1,9 @@
 export enum EventCategory {
-  SCIENCE = "Science",
-  SPORTS = "Sports",
-  RELIGION = "Religion",
-  HISTORY = "History",
-  DEFENSE = "Defense",
-  AWARENESS = "Awareness"
+    SCIENCE = "Science",
+    TECHNOLOGY = "Technology",
+    SPORTS = "Sports",
+    LITERATURE = "Literature",
+    DEBATE = "Debate"
 }
 
 export interface Event {
