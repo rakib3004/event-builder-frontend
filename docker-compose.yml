@@ -4,7 +4,7 @@ services:
     image: rakib3004/event-builder-frontend:latest
     container_name: event-builder-frontend
     ports:
-      - "80:80"  # Changed from 4200 to standard HTTP port
+      - "7010:7010"
     environment:
       - NODE_ENV=production
     depends_on:
@@ -14,7 +14,7 @@ services:
     image: rakib3004/event-builder-backend:latest
     container_name: event-builder-backend
     ports:
-      - "8000:8000"
+      - "7020:7020"
     environment:
       - POSTGRES_SERVER=db
       - POSTGRES_PORT=5432
